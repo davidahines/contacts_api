@@ -2,9 +2,9 @@ import express from 'express';
 import json from 'body-parser';
 import mongoose from 'mongoose';
 import contact from './src/models/contactModel';
-import Config from './config/Config';
+import Config from './config/config';
 import { Configuration } from 'tslint';
-import contactRoutes = require('./src/routes/contactRoutes');
+import contactRoutes from './src/routes/contactRoutes';
 
 const app = express();
 app.use(express.json);
