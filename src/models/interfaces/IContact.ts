@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose'
+import { Document, ObjectId, Schema } from 'mongoose'
 import IAddress from './IAddress';
 
 export default interface IContact extends Document {

@@ -5,8 +5,22 @@ export const contactsRouter = express.Router();
 
 const contactController = new ContactController();
 
-contactsRouter.route('/contacts')
-    .get(contactController.readAContact);
+const base = '/contacts'
+
+contactsRouter.post(`${base}`,
+    (request, response) => {
+        contactController.addAContact(request, response)
+    });
+contactsRouter.get(`${base}/:id`,
+    (request, response) => {
+        contactController.readAContact(request, response)
+    });
+
+// contactsRouter.route('/contacts')
+//     .post(contactController.addAContact);
+// contactsRouter.route('/contacts/:contactId')
+//     .get(contactController.readAContact);
+
 
 
 module.exports = contactsRouter;
