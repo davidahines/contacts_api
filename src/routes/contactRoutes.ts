@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { model } from "mongoose";
 import ContactController from "../controllers/contactController";
-export const contactsRouter = express.Router();
+const contactsRouter = express.Router();
 
 const contactController = new ContactController();
 
@@ -20,7 +20,4 @@ contactsRouter.get(`${base}/:id`,
 //     .post(contactController.addAContact);
 // contactsRouter.route('/contacts/:contactId')
 //     .get(contactController.readAContact);
-
-
-
-module.exports = contactsRouter;
+export default contactsRouter;

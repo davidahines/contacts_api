@@ -7,7 +7,7 @@ export default class ContactController {
 
 
   readAContact(req: Request, res: Response) {
-    let idObj = new mongoose.Types.ObjectId(req.params.contactId);
+    const idObj = new mongoose.Types.ObjectId(req.params.contactId);
     contactModel.findOne({ _id: idObj })
       .then(
         (data: any) => {
@@ -22,6 +22,7 @@ export default class ContactController {
 
   addAContact(req: Request, res: Response) {
     contactModel.create(req.body).then((createdContact: IContact) =>{
+      // tslint:disable-next-line:no-console
       console.log("Created Contact:" +createdContact);
     });
   }

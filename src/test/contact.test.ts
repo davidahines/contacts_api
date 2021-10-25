@@ -1,9 +1,9 @@
 import contactModel from "../models/contactModel";
 import IAddress from "../models/interfaces/IAddress";
 import IContact from "../models/interfaces/IContact";
+import supertest from 'supertest';
+import app from '../../server'
 
-const app = require('../../server') // Link to your server file
-const supertest = require('supertest');
 const request = supertest(app);
 jest.setTimeout(100000);
 test('it should create a contact', async done => {
