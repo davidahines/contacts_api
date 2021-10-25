@@ -8,7 +8,7 @@ contactsRouter.post("/",
     (req, res) => {
         contactController.addAContact(req, res)
     });
-contactsRouter.get("/:id",
+contactsRouter.get("/:contactId",
     (req, res) => {
         contactController.readAContact(req, res)
     });

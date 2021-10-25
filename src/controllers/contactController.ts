@@ -25,7 +25,7 @@ export default class ContactController {
   addAContact(req: Request, res: Response) {
     // eslint-disable-next-line no-use-before-define
     // @ts-ignore
-    void contactModel.create(req.body) // I might not want void here.
+    void contactModel.create(req.body)
       .then(
         // @ts-ignore
         (createdContact: IContact) => {
