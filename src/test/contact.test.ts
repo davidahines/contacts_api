@@ -1,10 +1,9 @@
-import contactModel from "../models/contactModel";
-import IAddress from "../models/interfaces/IAddress";
-import IContact from "../models/interfaces/IContact";
 import supertest from 'supertest';
 import app from '../../server'
 
 const request = supertest(app);
+
+/* eslint-disable  @typescript-eslint/no-unsafe-member-access */
 jest.setTimeout(100000);
 test('it should create a contact', async done => {
     // const testContact: IContact = <IContact> {
@@ -41,3 +40,4 @@ test('it should get a contact', async done => {
     expect(response.body.message).toBe('pass!');
     done();
 });
+/* eslint-enable  @typescript-eslint/no-unsafe-member-access */

@@ -1,54 +1,55 @@
 import express from 'express';
-import json from 'body-parser';
 import mongoose from 'mongoose';
-import contact from './src/models/contactModel';
 import Config from './config/config';
-import { Configuration } from 'tslint';
-import contactRoutes from './src/routes/contactRoutes';
+import {contactsRouter} from './src/routes/contactRoutes';
+import Logger from './src/lib/logger';
 
 const app = express();
-app.use(express.json);
+app.use(express.json());
 
 
 mongoose.Promise = global.Promise;
 
 
 const databaseConfig = new Config();
-// tslint:disable-next-line:no-console
-mongoose.connect(databaseConfig.getConnectionString(process.env.NODE_ENV)).catch(error => console.log("mongoose connection error"+error));
+mongoose.connect(databaseConfig.getConnectionString(process.env.NODE_ENV))
+  .catch(error => {
+    const  errStr= String(error);
+    Logger.info(`mongoose connection error${errStr}`)
+  });
 
 
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', error => {
     // tslint:disable-next-line:no-console
-    console.log("mongoose error" + err);
+    const errStr = String(error);
+    Logger.info(`mongoose connection error${errStr}`);
 });
 
 mongoose.connection.on('connecting', () => {
     // tslint:disable-next-line:no-console
-    console.log('connecting')
+    Logger.info('connecting')
     // tslint:disable-next-line:no-console
-    console.log(mongoose.connection.readyState); // logs 2
+    Logger.info(mongoose.connection.readyState); // logs 2
   });
   mongoose.connection.on('connected', () => {
       // tslint:disable-next-line:no-console
-    console.log('connected');
+    Logger.info('connected');
     // tslint:disable-next-line:no-console
-    console.log(mongoose.connection.readyState); // logs 1
+    Logger.info(mongoose.connection.readyState); // logs 1
   });
   mongoose.connection.on('disconnecting', () => {
       // tslint:disable-next-line:no-console
-    console.log('disconnecting');
+    Logger.info('disconnecting');
     // tslint:disable-next-line:no-console
-    console.log(mongoose.connection.readyState); // logs 3
+    Logger.info(mongoose.connection.readyState); // logs 3
   });
   mongoose.connection.on('disconnected', () => {
       // tslint:disable-next-line:no-console
-    console.log('disconnected');
+    Logger.info('disconnected');
     // tslint:disable-next-line:no-console
-    console.log(mongoose.connection.readyState); // logs 0
+    Logger.info(mongoose.connection.readyState); // logs 0
   });
 
-
-app.use('/', contactRoutes);
+app.use('/contacts', contactsRouter);
 // routes(app);
 export default app;

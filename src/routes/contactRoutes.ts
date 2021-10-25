@@ -1,23 +1,18 @@
-import express, { Request, Response } from "express";
-import { model } from "mongoose";
+import express from "express";
 import ContactController from "../controllers/contactController";
-const contactsRouter = express.Router();
+export const contactsRouter = express.Router();
 
 const contactController = new ContactController();
 
-const base = '/contacts'
-
-contactsRouter.post(`${base}`,
-    (request, response) => {
-        contactController.addAContact(request, response)
+contactsRouter.post("/",
+    (req, res) => {
+        contactController.addAContact(req, res)
     });
-contactsRouter.get(`${base}/:id`,
-    (request, response) => {
-        contactController.readAContact(request, response)
+contactsRouter.get("/:id",
+    (req, res) => {
+        contactController.readAContact(req, res)
     });
-
-// contactsRouter.route('/contacts')
-//     .post(contactController.addAContact);
-// contactsRouter.route('/contacts/:contactId')
-//     .get(contactController.readAContact);
-export default contactsRouter;
+contactsRouter.get("/",
+    (req, res) => {
+        contactController.listAllContacts(req, res)
+    });
