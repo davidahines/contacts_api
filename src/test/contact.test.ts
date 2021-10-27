@@ -60,7 +60,7 @@ const compareResponseToContact = (response: Response, contact: IContact) => {
 jest.setTimeout(100000);
 
 
-//-- /contacts Jest tests
+// contacts Jest tests
 test("it should create a contact", async () => {
     const response = await request.post('/contacts').send(testContactJson);
     expect(response.status).toBe(200);
@@ -70,7 +70,7 @@ test('it should get a contact', async () => {
     const postResponse: Response = await request.post('/contacts').send(testContactJson);
     compareResponseToContact(postResponse, testContact);
 
-    const getResponse = await request.get(`/contacts/${postResponse.body._id}`);
+    const getResponse: Response = await request.get(`/contacts/${String(postResponse.body._id)}`);
     expect(getResponse.status).toBe(200);
     compareResponseToContact(getResponse, testContact);
 });
@@ -79,7 +79,7 @@ test('it should get a contact', async () => {
     const postResponse: Response = await request.post('/contacts').send(testContactJson);
     compareResponseToContact(postResponse, testContact);
 
-    const getResponse = await request.get(`/contacts/${postResponse.body._id}`);
+    const getResponse: Response = await request.get(`/contacts/${String(postResponse.body._id)}`);
     expect(getResponse.status).toBe(200);
     compareResponseToContact(getResponse, testContact);
 });
@@ -90,11 +90,12 @@ test('it should update a contact', async () => {
     compareResponseToContact(postResponse, testContact);
 
     // Make a copy of the test data and set it to the ID we found.
-    let jsonCopy = JSON.parse(JSON.stringify(updateCheckJson));
-    jsonCopy._id = postResponse.body._id;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const jsonCopy = JSON.parse(JSON.stringify(updateCheckJson));
+    jsonCopy._id = String(postResponse.body._id);
 
     // Send the updated object.
-    const putResponse = await request.put(`/contacts/${postResponse.body._id}`).send();
+    const putResponse: Response = await request.put(`/contacts/${String(postResponse.body._id)}`).send();
     expect(putResponse.status).toBe(200);
     compareResponseToContact(putResponse, alteredTestContact);
 });

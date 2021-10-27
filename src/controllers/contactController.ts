@@ -8,7 +8,7 @@ import mongoose = require('mongoose');
 
 export default class ContactController {
   readAContact(req: Request, res: Response) {
-    const idObj = new mongoose.Types.ObjectId(req.params.contactId);
+    const idObj : mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.contactId);
     // eslint-disable-next-line no-use-before-define
     void contactModel.findOne({ _id: idObj })
       .then(
@@ -41,7 +41,9 @@ export default class ContactController {
   updateAContact(req: Request, res: Response) {
     // eslint-disable-next-line no-use-before-define
     // @ts-ignore
-    void contactModel.findOneAndUpdate({ _id: idObj })
+    const idObj :mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.contactId);
+
+    void contactModel.findOneAndUpdate({ _id: idObj})
       .then(
         (data: IContact) => {
           if (data) {
