@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Config from './config/config';
 import {contactsRouter} from './src/routes/contactRoutes';
 import Logger from './src/lib/logger';
+import contactModel from './src/models/contactModel';
 
 const app = express();
 app.use(express.json());
@@ -52,6 +53,16 @@ mongoose.connection.on('connecting', () => {
 
 export function closeMongoose() {
   mongoose.connection.close();
+}
+
+export function clearTestDb() {
+  contactModel.remove({}, function(err: any) { 
+    if(err){
+      Logger.warn(`server.ts: Mongoose error: ${err}`);
+    }else{
+      Logger.warn("Cleared test db."); // logs 0
+    }
+ });
 }
 
 app.use('/contacts', contactsRouter);

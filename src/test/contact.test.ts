@@ -2,12 +2,13 @@ import IContact from '../models/interfaces/IContact';
 import supertest, { Response } from 'supertest';
 import app from '../../server';
 import TestContactModel from '../models/contactModel';
-import { closeMongoose} from '../../server';
+import { closeMongoose, clearTestDb} from '../../server';
 
 const request = supertest(app);
 
 
 beforeAll(done => {
+    clearTestDb();
     done()
 })
 
