@@ -50,6 +50,11 @@ mongoose.connection.on('connecting', () => {
     Logger.info(mongoose.connection.readyState); // logs 0
   });
 
+export function closeMongoose() {
+  mongoose.connection.close();
+}
+
 app.use('/contacts', contactsRouter);
 // routes(app);
 export default app;
+
