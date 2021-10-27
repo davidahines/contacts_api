@@ -6,6 +6,7 @@
     "prebuild": "eslint . --ext .ts --ignore-pattern node_modules/",
     "build": "tsc",
     "prestart": "npm run build",
+    "pretest": "npm run build",
     "test": "jest",
     "start": "SET NODE_ENV=dev&& nodemon --ext ts --exec \"node --experimental-specifier-resolution=node --loader ts-node/esm\" start.ts"
   },

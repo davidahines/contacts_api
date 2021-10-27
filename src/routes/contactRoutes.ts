@@ -16,3 +16,7 @@ contactsRouter.get("/",
     (req, res) => {
         contactController.listAllContacts(req, res)
     });
+contactsRouter.put("/:contactId",
+    (req, res) => {
+        contactController.updateAContact(req, res)
+    });

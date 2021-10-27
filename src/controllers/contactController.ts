@@ -38,6 +38,21 @@ export default class ContactController {
       });
   }
 
+  updateAContact(req: Request, res: Response) {
+    // eslint-disable-next-line no-use-before-define
+    // @ts-ignore
+    void contactModel.findOneAndUpdate({ _id: idObj })
+      .then(
+        (data: IContact) => {
+          if (data) {
+            res.status(200).json(data);
+          } else {
+            res.status(404).send();
+          }
+        }
+      )
+  }
+
   listAllContacts(req: Request, res: Response) {
     // eslint-disable-next-line no-use-before-define
     void contactModel.find({})

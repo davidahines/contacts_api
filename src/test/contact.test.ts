@@ -29,7 +29,23 @@ const testContactJson = {
         state: "Test State/Province"
     }
 }
+
+const updateCheckJson = {
+    name: "altered test name",
+    email: "alteredtest@test.com",
+    phoneNumber: "altered 555-555-5555",
+    address: {
+        streetName: "Altered Street",
+        houseNumber: "Altered Number",
+        city: "Altered City",
+        state: "Altered State/Province"
+    }
+}
+
+
 const testContact: IContact = new TestContactModel(testContactJson);
+const alteredTestContact: IContact = new TestContactModel(updateCheckJson);
+
 
 /* eslint-disable  @typescript-eslint/no-unsafe-member-access */
 const compareResponseToContact = (response: Response, contact: IContact) => {
@@ -57,5 +73,29 @@ test('it should get a contact', async () => {
     const getResponse = await request.get(`/contacts/${postResponse.body._id}`);
     expect(getResponse.status).toBe(200);
     compareResponseToContact(getResponse, testContact);
+});
+
+test('it should get a contact', async () => {
+    const postResponse: Response = await request.post('/contacts').send(testContactJson);
+    compareResponseToContact(postResponse, testContact);
+
+    const getResponse = await request.get(`/contacts/${postResponse.body._id}`);
+    expect(getResponse.status).toBe(200);
+    compareResponseToContact(getResponse, testContact);
+});
+
+test('it should update a contact', async () => {
+    // Make a contact
+    const postResponse: Response = await request.post('/contacts').send(testContactJson);
+    compareResponseToContact(postResponse, testContact);
+
+    // Make a copy of the test data and set it to the ID we found.
+    let jsonCopy = JSON.parse(JSON.stringify(updateCheckJson));
+    jsonCopy._id = postResponse.body._id;
+
+    // Send the updated object.
+    const putResponse = await request.put(`/contacts/${postResponse.body._id}`).send();
+    expect(putResponse.status).toBe(200);
+    compareResponseToContact(putResponse, alteredTestContact);
 });
 /* eslint-enable  @typescript-eslint/no-unsafe-member-access */

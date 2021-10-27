@@ -51,16 +51,16 @@ mongoose.connection.on('connecting', () => {
     Logger.info(mongoose.connection.readyState); // logs 0
   });
 
-export function closeMongoose() {
-  mongoose.connection.close();
+export const closeMongoose = () => {
+  void mongoose.connection.close();
 }
 
-export function clearTestDb() {
-  contactModel.remove({}, function(err: any) { 
+export const clearTestDb = () => {
+  void contactModel.remove({}, (err: any) => {
     if(err){
-      Logger.warn(`server.ts: Mongoose error: ${err}`);
+      Logger.warn(`server.ts: Mongoose error: ${String(err)}`);
     }else{
-      Logger.warn("Cleared test db."); // logs 0
+      Logger.warn("Cleared test db.");
     }
  });
 }
