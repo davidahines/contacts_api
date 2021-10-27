@@ -10,7 +10,7 @@ Setup:
   * Copy the config folder in config.zip into the contacts_api project.
       
 * Running the Tests to confirm the application is setup and working: 
- * `npm test`
+ * `npm t`
 
 * Launch the server from the command line: `npm start`
 
