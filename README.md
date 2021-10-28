@@ -16,7 +16,7 @@ Setup:
  * docker build . -t davidahines/contact_api
 
 * Querying the api:
-For example queries you can look below or look at the tests(`/test` folder):
+For example queries you can look below or look at the tests(`/src/test` folder):
   * List all contacts:
     GET `localhost:3000/contacts`
   * Create a contact:
