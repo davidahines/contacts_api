@@ -12,10 +12,11 @@ Setup:
 * Running the Tests to confirm the application is setup and working: 
  * `npm t`
 
-* Launch the server from the command line: `npm start`
+* Run the docker build with:
+ * docker build . -t davidahines/contact_api
 
 * Querying the api:
-For example queries you can look below or look at the tests(`/test` folder):
+For example queries you can look below or look at the tests(`/src/test` folder):
   * List all contacts:
     GET `localhost:3000/contacts`
   * Create a contact:
@@ -44,16 +45,6 @@ For example queries you can look below or look at the tests(`/test` folder):
       email: "test@test.com"`
   * Delete a contact:
     * DELETE: `localhost:3000/contacts/contact_id`
-  * Find contacts by name:
-    * POST `localhost:3000/contacts/search?name=Test`
-  * Find contacts by street number:
-    * POST `localhost:3000/contacts/search?streetName=Test Street`
-  * Find contacts by city:
-    * POST `localhost:3000/contacts/search?city=Test City`
-  * Find contacts by phone number:
-    * POST `localhost:3000/contacts/search?keyword=555-555-555`
-  * Find contacts by email:
-    * POST `localhost:3000/contacts/search?email=test@test.com`
    
 ** Please email me if you have any issues:
  *`david.hines.01@gmail.com` **
