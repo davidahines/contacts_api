@@ -95,7 +95,7 @@ test('it should update a contact', async () => {
     jsonCopy._id = String(postResponse.body._id);
 
     // Send the updated object.
-    const putResponse: Response = await request.put(`/contacts/${String(postResponse.body._id)}`).send();
+    const putResponse: Response = await request.put(`/contacts/${String(postResponse.body._id)}`).send(jsonCopy);
     expect(putResponse.status).toBe(200);
     compareResponseToContact(putResponse, alteredTestContact);
 });

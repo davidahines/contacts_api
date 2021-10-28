@@ -39,11 +39,10 @@ export default class ContactController {
   }
 
   updateAContact(req: Request, res: Response) {
-    // eslint-disable-next-line no-use-before-define
-    // @ts-ignore
-    const idObj :mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.contactId);
 
-    void contactModel.findOneAndUpdate({ _id: idObj})
+    const idObj :mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.contactId);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    void contactModel.findOneAndUpdate({ _id: idObj}, req.body, {new: true} )
       .then(
         (data: IContact) => {
           if (data) {

@@ -6,6 +6,7 @@ import Logger from './src/lib/logger';
 import contactModel from './src/models/contactModel';
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
