@@ -3,6 +3,7 @@ import IContact from '../models/interfaces/IContact';
 import { Request, Response } from "express";
 import Logger from '../lib/logger';
 import mongoose = require('mongoose');
+import mongodb from 'mongodb';
 
 // eslint-disable no-floating-promises
 
@@ -12,7 +13,7 @@ export default class ContactController {
     // eslint-disable-next-line no-use-before-define
     void contactModel.findOne({ _id: idObj })
       .then(
-        (data: any) => {
+        (data: IContact) => {
           if (data) {
             res.status(200).json(data)
           } else {
@@ -47,6 +48,21 @@ export default class ContactController {
         (data: IContact) => {
           if (data) {
             res.status(200).json(data);
+          } else {
+            res.status(404).send();
+          }
+        }
+      )
+  }
+
+  deleteAContact(req: Request, res: Response) {
+    const idObj :mongoose.Types.ObjectId = new mongoose.Types.ObjectId(req.params.contactId);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    void contactModel.deleteOne({ _id: idObj})
+      .then(
+        (deleteResult: mongodb.DeleteResult) => {
+          if (deleteResult) {
+            res.status(200).json(deleteResult);
           } else {
             res.status(404).send();
           }

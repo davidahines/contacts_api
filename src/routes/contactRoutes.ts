@@ -16,6 +16,10 @@ contactsRouter.get("/",
     (req, res) => {
         contactController.listAllContacts(req, res)
     });
+contactsRouter.delete("/:contactId",
+    (req, res) => {
+        contactController.deleteAContact(req, res)
+    });
 contactsRouter.put("/:contactId",
     (req, res) => {
         contactController.updateAContact(req, res)

@@ -4,6 +4,7 @@ import app from '../../server';
 import TestContactModel from '../models/contactModel';
 import { closeMongoose, clearTestDb} from '../../server';
 
+
 const request = supertest(app);
 
 
@@ -75,15 +76,6 @@ test('it should get a contact', async () => {
     compareResponseToContact(getResponse, testContact);
 });
 
-test('it should get a contact', async () => {
-    const postResponse: Response = await request.post('/contacts').send(testContactJson);
-    compareResponseToContact(postResponse, testContact);
-
-    const getResponse: Response = await request.get(`/contacts/${String(postResponse.body._id)}`);
-    expect(getResponse.status).toBe(200);
-    compareResponseToContact(getResponse, testContact);
-});
-
 test('it should update a contact', async () => {
     // Make a contact
     const postResponse: Response = await request.post('/contacts').send(testContactJson);
@@ -92,11 +84,23 @@ test('it should update a contact', async () => {
     // Make a copy of the test data and set it to the ID we found.
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const jsonCopy = JSON.parse(JSON.stringify(updateCheckJson));
-    jsonCopy._id = String(postResponse.body._id);
+    jsonCopy._id= String(postResponse.body._id);
 
     // Send the updated object.
-    const putResponse: Response = await request.put(`/contacts/${String(postResponse.body._id)}`).send(jsonCopy);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-argument
+    const putResponse: Response = await request.put(`/contacts/${postResponse.body._id}`).send(jsonCopy);
     expect(putResponse.status).toBe(200);
     compareResponseToContact(putResponse, alteredTestContact);
+});
+
+test('it should delete a contact', async () => {
+    // Make a contact
+    const postResponse: Response = await request.post('/contacts').send(testContactJson);
+    compareResponseToContact(postResponse, testContact);
+
+    // Delete the contact
+    const deleteResponse: Response = await request.delete(`/contacts/${String(postResponse.body._id)}`);
+    expect(deleteResponse.status).toBe(200);
+    expect(deleteResponse.body.deletedCount).toBe(1);
 });
 /* eslint-enable  @typescript-eslint/no-unsafe-member-access */
